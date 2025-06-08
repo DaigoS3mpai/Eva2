@@ -9,6 +9,7 @@
     <module>microservice-config</module>
     <module>microservice-paciente</module>
     <module>microservice-atencion</module>
+    <module>microservice-agendacita</module>
   </modules>
 
   <parent>

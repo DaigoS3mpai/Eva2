@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: msvc-agendacita
+    config:
+        import: optional:configserver:https://localhost:8888
