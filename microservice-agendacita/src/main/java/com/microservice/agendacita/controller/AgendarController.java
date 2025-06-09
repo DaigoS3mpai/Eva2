@@ -3,11 +3,13 @@ package com.microservice.agendacita.controller;
 import com.microservice.agendacita.model.Agendar;
 import com.microservice.agendacita.model.EstadoCita;
 import com.microservice.agendacita.service.AgendarService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.microservice.agendacita.dto.AgendarDTO;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,11 +22,13 @@ public class AgendarController {
 
     // Crear nueva cita
     @PostMapping
-    public ResponseEntity<Agendar> crearCita(@RequestBody Agendar agendar) {
-        Agendar nuevaCita = agendarService.agendar(agendar);
-        return ResponseEntity.ok(nuevaCita);
-    }
+public ResponseEntity<Agendar> crearCita(@RequestBody @Valid AgendarDTO dto) {
+    Agendar nuevaCita = new Agendar();
+    nuevaCita.setPacienteId(dto.getPacienteId());
+    nuevaCita.setFechaHora(dto.getFechaHora());
 
+    return ResponseEntity.ok(agendarService.agendar(nuevaCita));
+}
     // Obtener cita por ID
     @GetMapping("/{id}")
     public ResponseEntity<Agendar> obtenerCita(@PathVariable Long id) {
